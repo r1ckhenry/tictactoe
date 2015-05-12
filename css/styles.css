@@ -44,6 +44,7 @@
 }
 .game-box {
   height: 200px;
+  padding: 10px;
 }
 .center-box {
   border: 1px solid #000;

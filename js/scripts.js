@@ -12,7 +12,6 @@ function rowWin() {
     checkRow(row);
   }
 }
-rowWin();
 
 // check each row array
 function checkRow(rowData) {
@@ -43,7 +42,6 @@ function colWin() {
   testForWin(countB);
   testForWin(countC);
 }
-colWin();
 
 // get each col 'array'
 function diagonalWin() {
@@ -52,7 +50,6 @@ function diagonalWin() {
   testForWin(diagonal1);
   testForWin(diagonal2);
 }
-diagonalWin();
 
 // test for win
 function testForWin(val) {
@@ -63,13 +60,41 @@ function testForWin(val) {
   }
 }
 
+var alternate = 'x';
+
+// function to get score and change player
+function getScorePointAndChangePlayer() {
+  if (alternate === 'x') {
+    alternate = 'o';
+    return 1;
+  } else {
+    alternate = 'x';
+    return 2;
+  }
+}
+
+// Start of DOM interactions 
 $(document).ready(function(){
 
+  // game-box event listner
   $('.game-box').on('click', function(){
+    applySymbolToBoard($(this));
     var thisElement = $('.game-box').index($(this));;
     applyPointsToArray(thisElement);
+    rowWin();
+    colWin();
+    diagonalWin();
   });
 
+  function applySymbolToBoard(currentItem) {
+    if (alternate === 'x') {
+      currentItem.append('X');
+    } else {
+      currentItem.append('O');
+    }
+  };
+
+  // apply points to array
   function applyPointsToArray(gameBoxPosition) {
     var pos1 = undefined;
     var pos2 = undefined;
@@ -80,11 +105,19 @@ $(document).ready(function(){
     } else {
       pos1 = 2;
     }
-    board[pos1][getPositionTwo(pos1)] = 1;
+    console.log(pos1, getPositionTwo(pos1, gameBoxPosition));
+    board[pos1][getPositionTwo(pos1, gameBoxPosition)] = getScorePointAndChangePlayer();
   }
 
-  function getPositionTwo(firstPos) {
-    
+  // get position of the box and convert to notation
+  function getPositionTwo(firstPos, boxPos) {
+    if (firstPos === 0) {
+      return boxPos;
+    } else if (firstPos === 1) {
+      return boxPos - 3;
+    } else {
+      return boxPos - 6;
+    }
   }
 
 
