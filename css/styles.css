@@ -1,0 +1,58 @@
+.container {
+  width: 95%;
+  margin: 0 auto;
+}
+.box-1 {
+  display: inline-block;
+  width: 10%;
+}
+.box-2 {
+  display: inline-block;
+  width: 20%;
+}
+.box-3 {
+  display: inline-block;
+  width: 30%;
+}
+.box-4 {
+  display: inline-block;
+  width: 40%;
+}
+.box-5 {
+  display: inline-block;
+  width: 50%;
+}
+.box-6 {
+  display: inline-block;
+  width: 60%;
+}
+.box-7 {
+  display: inline-block;
+  width: 70%;
+}
+.box-8 {
+  display: inline-block;
+  width: 80%;
+}
+.box-9 {
+  display: inline-block;
+  width: 90%;
+}
+.box-10 {
+  display: inline-block;
+  width: 100%;
+}
+.game-box {
+  height: 200px;
+}
+.center-box {
+  border: 1px solid #000;
+}
+.left-center-box, .right-center-box {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+.top-center-box, .bottom-center-box {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000; 
+}
