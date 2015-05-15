@@ -4,6 +4,8 @@ var board = [
             [ undefined, undefined, undefined ]
             ];
 
+var playerOneName = "";
+var playerTwoName = "";
 
 // get each row array
 function rowWin() {
@@ -19,9 +21,9 @@ function checkRow(rowData) {
   var oCount = 0;
   for (var i = 0; i < rowData.length; i++) {
     if (rowData[i] === 1) {
-      xCount += 1
+      xCount += 1;
     } else if (rowData[i] === 2) {
-      oCount += 2
+      oCount += 2;
     }
   }
   testForWin(xCount);
@@ -51,13 +53,28 @@ function diagonalWin() {
   testForWin(diagonal2);
 }
 
+var getGameWrapper = $('.game-wrapper');
 // test for win
 function testForWin(val) {
   if (val === 3) {
-    console.log('X WINS');
+    winner(playerOneName);
+    $('.game-wrapper').addClass('js-allow-no-click');
   } else if (val === 6) {
-    console.log('O WINS');
+    winner(playerTwoName);
+    $('.game-wrapper').addClass('js-allow-no-click');
+  } 
+}
+
+var clickCount = 0;
+getGameWrapper.on('click', function(){
+  clickCount += 1;
+  if (clickCount === 9) {
+    $(this).prepend("<div class='opacity-overlay'><h1 class='winner-text'>IT'S A TIE</h1></div>");
   }
+});
+  
+function winner(name) {
+  getGameWrapper.prepend('<div class="opacity-overlay"><h1 class="winner-text">' + name + ' WINS</h1></div>');
 }
 
 var alternate = 'x';
@@ -76,6 +93,14 @@ function getScorePointAndChangePlayer() {
 // Start of DOM interactions 
 $(document).ready(function(){
 
+  // start game event listener
+  $('#start').on('click', function(){
+    $('.user-details').css('display', 'none');
+    getGameWrapper.show();
+    playerOneName = $('#playerOne').val();
+    playerTwoName = $('#playerTwo').val();
+  });
+
   // game-box event listner
   $('.game-box').on('click', function(){
     applySymbolToBoard($(this));
@@ -88,10 +113,11 @@ $(document).ready(function(){
 
   function applySymbolToBoard(currentItem) {
     if (alternate === 'x') {
-      currentItem.append('X');
+      currentItem.html('<div class="js-square"></div>');
     } else {
-      currentItem.append('O');
+      currentItem.html('<div class="js-circle"></div>');
     }
+    currentItem.addClass('js-allow-no-click');
   };
 
   // apply points to array
@@ -105,7 +131,6 @@ $(document).ready(function(){
     } else {
       pos1 = 2;
     }
-    console.log(pos1, getPositionTwo(pos1, gameBoxPosition));
     board[pos1][getPositionTwo(pos1, gameBoxPosition)] = getScorePointAndChangePlayer();
   }
 
@@ -119,6 +144,4 @@ $(document).ready(function(){
       return boxPos - 6;
     }
   }
-
-
-});
+}); // End of doc ready
