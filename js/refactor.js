@@ -34,7 +34,7 @@ function testForWin(name) {
     if(board[e[0]] == board[e[1]] && board[e[1]] == board[e[2]] && board[e[0]] !== undefined) {
       $('.game-wrapper').prepend('<div class="opacity-overlay"><h1 class="winner-text">' + name + ' WINS</h1></div>');
     }
-  })
+  });
 }
 
 var clickCount = 0;
